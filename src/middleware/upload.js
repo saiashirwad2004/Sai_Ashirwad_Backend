@@ -1,11 +1,16 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { Readable } = require('stream');
 
-// Ensure local uploads directory exists
+// Ensure local uploads directory exists (only for local development)
 const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
+if (process.env.NODE_ENV !== 'production' && !fs.existsSync(uploadsDir)) {
+  try {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  } catch (e) {
+    console.log('⚠️ Could not create uploads directory locally');
+  }
 }
 
 // File filter for images
@@ -34,68 +39,61 @@ const fileFilter = (req, file, cb) => {
 };
 
 // =====================
-// LOCAL STORAGE
+// STORAGE STRATEGY
 // =====================
-const localStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const folder = req.body.folder || 'general';
-    const folderPath = path.join(uploadsDir, folder);
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath, { recursive: true });
-    }
-    cb(null, folderPath);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const ext = path.extname(file.originalname);
-    cb(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
-  },
-});
+// On Vercel, we must use memoryStorage because the filesystem is read-only.
+const storage = multer.memoryStorage();
 
 // =====================
 // CLOUDINARY HELPER
 // =====================
 const isCloudinaryConfigured = () => {
   return (
-    process.env.CLOUDINARY_CLOUD_NAME &&
+    process.env.CLOUDINARY_URL ||
+    (process.env.CLOUDINARY_CLOUD_NAME &&
     process.env.CLOUDINARY_CLOUD_NAME !== 'your_cloud_name' &&
     process.env.CLOUDINARY_API_KEY &&
-    process.env.CLOUDINARY_API_KEY !== 'your_api_key'
+    process.env.CLOUDINARY_API_KEY !== 'your_api_key')
   );
 };
 
-// Upload to Cloudinary from a local file path
-const uploadToCloudinary = async (filePath, folder = 'saiashirwad') => {
+// Upload to Cloudinary from a buffer
+const uploadToCloudinary = (fileBuffer, folder = 'saiashirwad') => {
   const cloudinary = require('../config/cloudinary');
-  try {
-    const result = await cloudinary.uploader.upload(filePath, {
-      folder: `saiashirwad/${folder}`,
-      quality: 'auto',
-      fetch_format: 'auto',
-      resource_type: 'auto',
-    });
-    // Delete the local temp file after cloudinary upload
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
-    return result;
-  } catch (error) {
-    throw new Error(`Cloudinary upload failed: ${error.message}`);
-  }
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: `saiashirwad/${folder}`,
+        quality: 'auto',
+        fetch_format: 'auto',
+        resource_type: 'auto',
+      },
+      (error, result) => {
+        if (error) return reject(new Error(`Cloudinary upload failed: ${error.message}`));
+        resolve(result);
+      }
+    );
+
+    // Convert buffer to readable stream and pipe to Cloudinary
+    const stream = new Readable();
+    stream.push(fileBuffer);
+    stream.push(null);
+    stream.pipe(uploadStream);
+  });
 };
 
-// Upload middleware for images (always local first, then optionally Cloudinary in controller)
+// Upload middleware for images
 const uploadImage = multer({
-  storage: localStorage,
+  storage: storage,
   fileFilter: imageFilter,
   limits: {
     fileSize: 10 * 1024 * 1024, // 10 MB
   },
 });
 
-// Upload middleware for general files (always local)
+// Upload middleware for general files
 const uploadFile = multer({
-  storage: localStorage,
+  storage: storage,
   fileFilter: fileFilter,
   limits: {
     fileSize: 50 * 1024 * 1024, // 50 MB
@@ -104,7 +102,7 @@ const uploadFile = multer({
 
 // Upload middleware for avatar
 const uploadAvatar = multer({
-  storage: localStorage,
+  storage: storage,
   fileFilter: imageFilter,
   limits: {
     fileSize: 5 * 1024 * 1024, // 5 MB

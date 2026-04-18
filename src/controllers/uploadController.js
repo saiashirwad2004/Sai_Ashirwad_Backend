@@ -22,7 +22,7 @@ const uploadImage = async (req, res) => {
     // Try Cloudinary first, fall back to local
     if (isCloudinaryConfigured()) {
       try {
-        const result = await uploadToCloudinary(req.file.path, folder);
+        const result = await uploadToCloudinary(req.file.buffer, folder);
         fileData = {
           filename: result.public_id.split('/').pop(),
           originalName: req.file.originalname,
@@ -35,8 +35,8 @@ const uploadImage = async (req, res) => {
           uploadedBy: req.user._id,
         };
       } catch (cloudErr) {
-        console.log('⚠️  Cloudinary upload failed, using local storage:', cloudErr.message);
-        // Fall through to local storage below
+        console.log('⚠️  Cloudinary upload failed:', cloudErr.message);
+        // Fall through to local storage below (not recommended on Vercel)
       }
     }
 
@@ -83,7 +83,7 @@ const uploadFile = async (req, res) => {
 
     if (isCloudinaryConfigured()) {
       try {
-        const result = await uploadToCloudinary(req.file.path, folder);
+        const result = await uploadToCloudinary(req.file.buffer, folder);
         fileData = {
           filename: result.public_id.split('/').pop(),
           originalName: req.file.originalname,
@@ -96,7 +96,7 @@ const uploadFile = async (req, res) => {
           uploadedBy: req.user._id,
         };
       } catch (cloudErr) {
-        console.log('⚠️  Cloudinary file upload failed, using local storage:', cloudErr.message);
+        console.log('⚠️  Cloudinary file upload failed:', cloudErr.message);
       }
     }
 
