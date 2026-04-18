@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const siteConfigSchema = new mongoose.Schema(
   {
     // Branding
-    siteName: { type: String, default: 'AnandVerse' },
+    siteName: { type: String, default: 'Sai Ashirwad' },
     siteTagline: { type: String, default: 'Full Stack Developer' },
     logo: {
       url: { type: String, default: '' },
@@ -11,7 +11,7 @@ const siteConfigSchema = new mongoose.Schema(
     },
 
     // Owner info
-    ownerName: { type: String, default: 'Anand' },
+    ownerName: { type: String, default: 'Sai Ashirwad' },
     ownerTitle: { type: String, default: 'Full Stack Developer' },
     ownerBio: {
       type: String,
@@ -39,7 +39,7 @@ const siteConfigSchema = new mongoose.Schema(
     },
 
     // Hero section
-    heroHeading: { type: String, default: "Hi, I'm Anand" },
+    heroHeading: { type: String, default: "Hi, I'm Sai Ashirwad" },
     heroSubtitle: {
       type: String,
       default: 'I build beautiful, fast, and user-friendly web experiences',
@@ -80,7 +80,7 @@ const siteConfigSchema = new mongoose.Schema(
 
     // Footer
     footerText: { type: String, default: '' },
-    copyrightName: { type: String, default: 'Anand' },
+    copyrightName: { type: String, default: 'Sai Ashirwad' },
 
     // Features
     maintenanceMode: { type: Boolean, default: false },

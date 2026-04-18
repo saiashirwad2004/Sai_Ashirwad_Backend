@@ -1,7 +1,7 @@
 {
-  "name": "anandverse-backend",
+  "name": "saiashirwad-backend",
   "version": "1.0.0",
-  "description": "AnandVerse Portfolio Backend API",
+  "description": "Sai Ashirwad Portfolio Backend API",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

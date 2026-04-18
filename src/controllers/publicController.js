@@ -244,15 +244,15 @@ const submitContactMessage = async (req, res) => {
           to: adminEmails.join(','),
           subject: `New Contact Message: ${subject || 'No Subject'}`,
           html: templates.getContactTemplate(name, email, message),
-          type: 'info' // Sent from info@anandverse.space
+          type: 'info' // Sent from info@saiashirwad.online
         });
       }
 
       await sendEmail({
         to: email,
-        subject: `Thank you for contacting AnandVerse`,
+        subject: `Thank you for contacting Sai Ashirwad`,
         html: templates.getAutoReplyTemplate(name),
-        type: 'info' // Sent from info@anandverse.space
+        type: 'info' // Sent from info@saiashirwad.online
       });
     } catch (e) {
       console.log('Could not send notification email:', e.message);
@@ -336,9 +336,9 @@ const subscribeNewsletter = async (req, res) => {
       // Send welcome newsletter message
       await sendEmail({
         to: email,
-        subject: 'Welcome to AnandVerse Newsletter',
+        subject: 'Welcome to Sai Ashirwad Newsletter',
         html: templates.getNewsletterConfirmationTemplate(),
-        type: 'newsletter' // Sent from newsletter@anandverse.space
+        type: 'newsletter' // Sent from newsletter@saiashirwad.online
       });
     } catch (e) {
       console.log('Newsletter confirmation email failed:', e.message);

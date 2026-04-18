@@ -102,7 +102,7 @@ const replyToMessage = async (req, res) => {
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: #111827; border-radius: 12px; padding: 32px; border: 1px solid #1e293b;">
-          <div style="font-size: 24px; font-weight: 700; color: #60a5fa; margin-bottom: 16px;">AnandVerse</div>
+          <div style="font-size: 24px; font-weight: 700; color: #60a5fa; margin-bottom: 16px;">Sai Ashirwad</div>
           <p style="color: #f8fafc; font-size: 16px;">Hi ${message.name},</p>
           <div style="color: #94a3b8; font-size: 16px; line-height: 1.6; white-space: pre-line;">${body}</div>
           <hr style="border: none; border-top: 1px solid #1e293b; margin: 24px 0;" />

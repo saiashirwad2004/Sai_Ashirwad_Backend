@@ -54,7 +54,7 @@ const inviteUser = async (req, res) => {
     
     await sendEmail({
       to: email,
-      subject: 'You have been invited to AnandVerse Dashboard',
+      subject: 'You have been invited to Sai Ashirwad Dashboard',
       html: templates.getInviteTemplate(inviteUrl),
       type: 'auth'
     });

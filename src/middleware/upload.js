@@ -65,11 +65,11 @@ const isCloudinaryConfigured = () => {
 };
 
 // Upload to Cloudinary from a local file path
-const uploadToCloudinary = async (filePath, folder = 'anandverse') => {
+const uploadToCloudinary = async (filePath, folder = 'saiashirwad') => {
   const cloudinary = require('../config/cloudinary');
   try {
     const result = await cloudinary.uploader.upload(filePath, {
-      folder: `anandverse/${folder}`,
+      folder: `saiashirwad/${folder}`,
       quality: 'auto',
       fetch_format: 'auto',
       resource_type: 'auto',

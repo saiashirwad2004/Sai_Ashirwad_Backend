@@ -7,12 +7,12 @@ const sendEmail = async ({ to, subject, html, type = 'info' }) => {
     return;
   }
 
-  let fromEmail = 'info@anandverse.space';
-  if (type === 'auth') fromEmail = 'auth@anandverse.space';
-  else if (type === 'newsletter') fromEmail = 'newsletter@anandverse.space';
+  let fromEmail = 'info@saiashirwad.online';
+  if (type === 'auth') fromEmail = 'auth@saiashirwad.online';
+  else if (type === 'newsletter') fromEmail = 'newsletter@saiashirwad.online';
 
   // Make sure we format the from string to look nice
-  const from = `"AnandVerse" <${fromEmail}>`;
+  const from = `"Sai Ashirwad" <${fromEmail}>`;
 
   const mailOptions = {
     from,
@@ -36,7 +36,7 @@ const sendEmail = async ({ to, subject, html, type = 'info' }) => {
 const templates = (() => {
   const logoHeader = `
     <div style="text-align: center; margin-bottom: 20px;">
-      <img src="https://anandverse.space/logo.png" alt="AnandVerse Logo" style="width: 50px; height: 50px; object-fit: contain; border-radius: 12px;" />
+      <img src="https://saiashirwad.online/logo.png" alt="Sai Ashirwad Logo" style="width: 50px; height: 50px; object-fit: contain; border-radius: 12px;" />
     </div>
   `;
 
@@ -61,7 +61,7 @@ const templates = (() => {
         </p>
         <p style="color: #4b5563; font-size: 16px;">
           Best Regards,<br />
-          <strong>AnandVerse Team</strong>
+          <strong>Sai Ashirwad Team</strong>
         </p>
       </div>
     `,
@@ -69,9 +69,9 @@ const templates = (() => {
     getInviteTemplate: (inviteUrl) => `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; border: 1px solid #eaeaea; border-radius: 10px;">
         ${logoHeader}
-        <h2 style="color: #3b82f6;">You've been invited to AnandVerse Admin Panel!</h2>
+        <h2 style="color: #3b82f6;">You've been invited to Sai Ashirwad Admin Panel!</h2>
         <p style="color: #4b5563; font-size: 16px; margin: 20px 0;">
-          You have been invited to join the AnandVerse dashboard. Please set up your password to activate your account.
+          You have been invited to join the Sai Ashirwad dashboard. Please set up your password to activate your account.
         </p>
         <a href="${inviteUrl}" style="display: inline-block; background-color: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin: 20px 0;">
           Accept Invitation & Set Password
@@ -101,7 +101,7 @@ const templates = (() => {
     getNewsletterConfirmationTemplate: () => `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; border: 1px solid #eaeaea; border-radius: 10px;">
         ${logoHeader}
-        <h2 style="color: #3b82f6;">Welcome to the AnandVerse Newsletter!</h2>
+        <h2 style="color: #3b82f6;">Welcome to the Sai Ashirwad Newsletter!</h2>
         <p style="color: #4b5563; font-size: 16px; margin: 20px 0;">
           Thank you for subscribing! You'll now receive updates about our newest blog posts, projects, and insights.
         </p>
@@ -119,7 +119,7 @@ const templates = (() => {
           Read the Article
         </a>
         <p style="color: #9ca3af; font-size: 12px; margin-top: 30px;">
-          You're receiving this because you subscribed to the AnandVerse newsletter.
+          You're receiving this because you subscribed to the Sai Ashirwad newsletter.
         </p>
       </div>
     `,

@@ -1,12 +1,18 @@
 const mongoose = require('mongoose');
 const dns = require('dns');
 
-// Use the OS DNS resolver (fixes SRV lookup issues in some environments)
-dns.setDefaultResultOrder('ipv4first');
+// Set DNS servers (Google DNS) to fix SRV lookup issues in some environments
+dns.setServers(['8.8.8.8', '8.8.4.4']);
+
+// Use the OS DNS resolver
+// dns.setDefaultResultOrder('ipv4first');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
+    const conn = await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+      family: 4, // Force IPv4
+    });
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);

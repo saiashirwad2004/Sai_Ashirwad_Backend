@@ -34,7 +34,7 @@ const blogPostSchema = new mongoose.Schema(
     },
     author: {
       type: String,
-      default: 'Anand',
+      default: 'Sai Ashirwad',
     },
     readTime: {
       type: String,

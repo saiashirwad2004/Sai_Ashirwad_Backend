@@ -22,8 +22,8 @@ app.use(helmet({
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://anandverse.space',
-  'https://www.anandverse.space',
+  'https://saiashirwad.online',
+  'https://www.saiashirwad.online',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -63,7 +63,7 @@ app.use('/api', routes);
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
-    message: 'AnandVerse API is running',
+    message: 'Sai Ashirwad API is running',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
   });
@@ -81,7 +81,7 @@ app.use('/api/*', (req, res) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 AnandVerse API Server`);
+  console.log(`\n🚀 Sai Ashirwad API Server`);
   console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`   Port: ${PORT}`);
   console.log(`   API: http://localhost:${PORT}/api`);

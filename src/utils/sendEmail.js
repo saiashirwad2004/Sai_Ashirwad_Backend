@@ -24,7 +24,7 @@ const sendEmail = async ({ to, subject, html, text }) => {
   }
 
   const mailOptions = {
-    from: `"AnandVerse" <${process.env.SMTP_USER}>`,
+    from: `"Sai Ashirwad" <${process.env.SMTP_USER}>`,
     to,
     subject,
     html,
@@ -61,10 +61,10 @@ const sendPasswordResetEmail = async (email, resetToken, userName) => {
     <body>
       <div class="container">
         <div class="card">
-          <div class="logo">AnandVerse</div>
+          <div class="logo">Sai Ashirwad</div>
           <h1>Password Reset Request</h1>
           <p>Hi ${userName || 'there'},</p>
-          <p>You requested a password reset for your AnandVerse account. Click the button below to set a new password:</p>
+          <p>You requested a password reset for your Sai Ashirwad account. Click the button below to set a new password:</p>
           <a href="${resetUrl}" class="btn">Reset Password</a>
           <p>Or copy and paste this link into your browser:</p>
           <p class="url">${resetUrl}</p>
@@ -72,7 +72,7 @@ const sendPasswordResetEmail = async (email, resetToken, userName) => {
           <p>If you didn't request this reset, you can safely ignore this email.</p>
         </div>
         <div class="footer">
-          <p>© ${new Date().getFullYear()} AnandVerse. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} Sai Ashirwad. All rights reserved.</p>
         </div>
       </div>
     </body>
@@ -81,7 +81,7 @@ const sendPasswordResetEmail = async (email, resetToken, userName) => {
 
   return sendEmail({
     to: email,
-    subject: 'Password Reset — AnandVerse',
+    subject: 'Password Reset — Sai Ashirwad',
     html,
   });
 };
@@ -110,14 +110,14 @@ const sendWelcomeEmail = async (email, userName) => {
     <body>
       <div class="container">
         <div class="card">
-          <div class="logo">AnandVerse</div>
+          <div class="logo">Sai Ashirwad</div>
           <h1>🎉 Welcome, ${userName}!</h1>
-          <p>Your admin account has been created successfully. You're all set to manage your AnandVerse portfolio!</p>
+          <p>Your admin account has been created successfully. You're all set to manage your Sai Ashirwad portfolio!</p>
           <a href="${loginUrl}" class="btn">Go to Dashboard</a>
           <p>If you have any issues, check your server logs or reach out for help.</p>
         </div>
         <div class="footer">
-          <p>© ${new Date().getFullYear()} AnandVerse. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} Sai Ashirwad. All rights reserved.</p>
         </div>
       </div>
     </body>
@@ -126,7 +126,7 @@ const sendWelcomeEmail = async (email, userName) => {
 
   return sendEmail({
     to: email,
-    subject: 'Welcome to AnandVerse! 🚀',
+    subject: 'Welcome to Sai Ashirwad! 🚀',
     html,
   });
 };
